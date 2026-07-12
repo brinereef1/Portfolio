@@ -257,7 +257,7 @@
   <div class="stars" aria-hidden="true" id="starField"></div>
   <p class="hero__coin pixel-font">INSERT COIN TO CONTINUE</p>
 
-  <svg id="heroSprite" class="sprite" width="112" height="112" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pixel art character sprite"></svg>
+  <img src="dev-laptop.png" alt="Developer at laptop" class="sprite" width="200" height="200" style="image-rendering: pixelated;">
 
   <h1 class="hero__title">REEF</h1>
   <p class="hero__subtitle pixel-font" style="font-size:clamp(10px,2vw,13px)">UNITY DEVELOPER · GAMEPLAY PROGRAMMER</p>
@@ -273,7 +273,7 @@
     <p class="section__eyebrow pixel-font">LEVEL 01</p>
     <h2 class="section__title pixel-font">THE DEVELOPER</h2>
     <div class="dialogue pixel-border pixel-corners">
-      <svg class="dialogue__avatar sprite" width="80" height="80" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" id="avatarSprite" role="img" aria-label="Pixel avatar"></svg>
+      <img src="dev-laptop.png" alt="Developer avatar" class="sprite" width="100" height="100" style="image-rendering: pixelated;">
       <div class="dialogue__text">
         <p>&gt; Hey, I'm <strong>Reef</strong>. I work in <strong>Unity</strong>, writing the C# scripts that turn a scene full of assets into something that actually plays.</p>
         <p>&gt; I like systems that talk to each other cleanly — pickups that trigger audio cues, managers that track room state, dialogue that remembers what already happened.</p>
@@ -381,58 +381,6 @@
 </footer>
 
 <script>
-// ---------- pixel sprite renderer ----------
-// Simple 16x16 grid character. '.' = transparent, letters map to palette.
-const palette = {
-  s: '#f1ead9', // skin
-  h: '#241a06', // hair/outline
-  g: '#5fd0c7', // shirt/teal
-  o: '#f4b942', // accent gold
-  d: '#161029'  // dark outline
-};
-const grid = [
-"................",
-"................",
-"......hhhh......",
-".....hssssh.....",
-".....hsssss.....",
-".....hs.o.s.....",
-".....hssssh.....",
-"......hddh......",
-".....ggggggg....",
-"....gggggggog...",
-"....gggggggg....",
-"....gg.....gg...",
-"....gg.....gg...",
-"....dd.....dd...",
-"...ddd.....ddd..",
-"................"
-];
-
-function renderSprite(svgId){
-  const svg = document.getElementById(svgId);
-  if(!svg) return;
-  let markup = '';
-  grid.forEach((row,y)=>{
-    [...row].forEach((c,x)=>{
-      if(c === '.') return;
-      const color = palette[c] || '#000';
-      markup += `<rect x="${x}" y="${y}" width="1" height="1" fill="${color}"/>`;
-    });
-  });
-  svg.innerHTML = markup;
-}
-renderSprite('heroSprite');
-renderSprite('avatarSprite');
-
-// blinking eyes: swap pixel at (7,5) and (8,5) periodically
-setInterval(()=>{
-  ['heroSprite','avatarSprite'].forEach(id=>{
-    const svg = document.getElementById(id);
-    if(!svg) return;
-    svg.style.opacity = svg.style.opacity === '0.85' ? '1' : '0.85';
-  });
-}, 2200);
 
 // ---------- floating stars ----------
 const starField = document.getElementById('starField');
