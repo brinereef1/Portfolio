@@ -17,7 +17,7 @@
     --text-light:#f1ead9;
     --text-dim:#a89bc4;
     --line:#3d3168;
-    --px:8px; /* base pixel unit for stepped corners */
+    --px:8px;
   }
 
   *{box-sizing:border-box;}
@@ -25,6 +25,7 @@
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+    .glitch::before, .glitch::after{display:none;}
   }
 
   body{
@@ -46,7 +47,6 @@
 
   a{color:inherit;}
 
-  /* ---------- scanline / crt overlay ---------- */
   .crt-overlay{
     pointer-events:none;
     position:fixed; inset:0; z-index:50;
@@ -61,7 +61,49 @@
     opacity:.35;
   }
 
-  /* ---------- pixel-stepped panel corners ---------- */
+  .glitch{
+    position:relative;
+    display:inline-block;
+  }
+  .glitch::before,
+  .glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    left:0; top:0;
+    width:100%; height:100%;
+  }
+  .glitch::before{
+    animation:glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    color:var(--accent-teal);
+    z-index:-1;
+  }
+  .glitch::after{
+    animation:glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    color:var(--accent-magenta);
+    z-index:-2;
+  }
+  @keyframes glitch-1{
+    0%{ clip-path:inset(40% 0 61% 0); transform:translate(-2px, -2px); }
+    20%{ clip-path:inset(92% 0 1% 0); transform:translate(2px, 2px); }
+    40%{ clip-path:inset(43% 0 1% 0); transform:translate(-2px, 2px); }
+    60%{ clip-path:inset(25% 0 58% 0); transform:translate(2px, -2px); }
+    80%{ clip-path:inset(54% 0 7% 0); transform:translate(-2px, -2px); }
+    100%{ clip-path:inset(58% 0 43% 0); transform:translate(2px, 2px); }
+  }
+  @keyframes glitch-2{
+    0%{ clip-path:inset(27% 0 58% 0); transform:translate(2px, -2px); }
+    20%{ clip-path:inset(5% 0 58% 0); transform:translate(-2px, 2px); }
+    40%{ clip-path:inset(54% 0 7% 0); transform:translate(2px, 2px); }
+    60%{ clip-path:inset(73% 0 9% 0); transform:translate(-2px, -2px); }
+    80%{ clip-path:inset(40% 0 58% 0); transform:translate(2px, 2px); }
+    100%{ clip-path:inset(1% 0 99% 0); transform:translate(-2px, -2px); }
+  }
+
+  .neon-hover{transition:all 0.2s;}
+  .neon-hover:hover{
+    text-shadow:0 0 8px var(--accent-teal), 0 0 16px var(--accent-teal), 0 0 24px var(--accent-magenta);
+  }
+
   .pixel-corners{
     clip-path: polygon(
       0 var(--px), var(--px) var(--px), var(--px) 0,
@@ -76,7 +118,6 @@
     background:var(--bg-panel);
   }
 
-  /* ---------- nav ---------- */
   .nav{
     position:sticky; top:0; z-index:40;
     display:flex; align-items:center; justify-content:space-between;
@@ -90,7 +131,6 @@
   .nav__links a{text-decoration:none; color:var(--text-dim); transition:color .15s;}
   .nav__links a:hover, .nav__links a:focus-visible{color:var(--accent-teal);}
 
-  /* ---------- hero ---------- */
   .hero{
     min-height:92vh;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -136,11 +176,12 @@
     text-decoration:none;
     display:inline-block;
     box-shadow:6px 6px 0 var(--accent-magenta);
-    transition:transform .12s, box-shadow .12s;
+    transition:transform .12s, box-shadow .12s, text-shadow .12s;
   }
   .btn:hover, .btn:focus-visible{
     transform:translate(-2px,-2px);
-    box-shadow:8px 8px 0 var(--accent-magenta);
+    box-shadow:8px 8px 0 var(--accent-magenta), 0 0 16px var(--accent-gold);
+    text-shadow:0 0 8px rgba(244, 185, 66, 0.8);
     outline:none;
   }
   .btn:active{transform:translate(2px,2px); box-shadow:2px 2px 0 var(--accent-magenta);}
@@ -150,8 +191,11 @@
     box-shadow:6px 6px 0 var(--bg-panel-2);
     border:2px solid var(--accent-teal);
   }
+  .btn--ghost:hover{
+    box-shadow:8px 8px 0 var(--bg-panel-2), 0 0 20px var(--accent-teal);
+    text-shadow:0 0 12px var(--accent-teal);
+  }
 
-  /* floating pixel stars */
   .stars span{
     position:absolute;
     width:4px; height:4px;
@@ -161,7 +205,6 @@
   }
   @keyframes float{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
 
-  /* ---------- sections ---------- */
   section{padding:80px clamp(18px,6vw,60px);}
   .section__eyebrow{
     font-size:10px; color:var(--accent-gold); letter-spacing:2px; margin-bottom:14px;
@@ -169,7 +212,6 @@
   .section__title{font-size:clamp(18px,3.4vw,26px); margin:0 0 34px; color:var(--text-light);}
   .container{max-width:1080px; margin:0 auto;}
 
-  /* ---------- about / dialogue box ---------- */
   .dialogue{
     display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:start;
     padding:28px clamp(18px,4vw,36px);
@@ -181,13 +223,17 @@
     .dialogue__avatar{margin:0 auto;}
   }
 
-  /* ---------- inventory / skills ---------- */
   .grid{
     display:grid; gap:18px;
     grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   }
   .item{
     padding:20px; position:relative;
+    transition:all .3s;
+  }
+  .item:hover{
+    box-shadow:0 0 16px rgba(95, 208, 199, 0.3), inset 0 0 8px rgba(95, 208, 199, 0.1);
+    transform:scale(1.05);
   }
   .item__icon{font-size:20px; margin-bottom:10px; color:var(--accent-gold);}
   .item__name{font-family:'Press Start 2P'; font-size:11px; margin:0 0 12px; color:var(--text-light);}
@@ -199,10 +245,15 @@
     transition:width 1.1s steps(12);
   }
 
-  /* ---------- quest log / projects ---------- */
   .quest{
     padding:24px; margin-bottom:22px;
     display:grid; grid-template-columns:120px 1fr; gap:22px; align-items:start;
+    transition:all .3s;
+    position:relative;
+  }
+  .quest:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 24px rgba(95, 208, 199, 0.2), 0 0 16px rgba(224, 84, 107, 0.1);
   }
   @media (max-width:600px){ .quest{grid-template-columns:1fr;} }
   .quest__tag{
@@ -219,7 +270,6 @@
     border:3px solid var(--line);
   }
 
-  /* ---------- save point / contact ---------- */
   .savepoint{
     text-align:center; padding:60px clamp(18px,6vw,60px);
     background:var(--bg-panel);
@@ -235,7 +285,6 @@
   }
   .heart{color:var(--accent-magenta);}
 
-  /* focus visibility */
   a:focus-visible, button:focus-visible{outline:3px solid var(--accent-gold); outline-offset:2px;}
 </style>
 </head>
@@ -259,7 +308,7 @@
 
   <img src="dev-laptop.png" alt="Developer at laptop" class="sprite" width="200" height="200" style="image-rendering: pixelated;">
 
-  <h1 class="hero__title">REEF</h1>
+  <h1 class="hero__title glitch" data-text="REEF">REEF</h1>
   <p class="hero__subtitle pixel-font" style="font-size:clamp(10px,2vw,13px)">UNITY DEVELOPER · GAMEPLAY PROGRAMMER</p>
   <p class="hero__desc">Building interactive worlds in C# — from puzzle mechanics to the systems that hold a level together. Currently crafting a bookshelf full of secrets that shouldn't be opened.</p>
   <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
@@ -271,7 +320,7 @@
 <section id="about">
   <div class="container">
     <p class="section__eyebrow pixel-font">LEVEL 01</p>
-    <h2 class="section__title pixel-font">THE DEVELOPER</h2>
+    <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="THE DEVELOPER">THE DEVELOPER</span></h2>
     <div class="dialogue pixel-border pixel-corners">
       <img src="dev-laptop.png" alt="Developer avatar" class="sprite" width="100" height="100" style="image-rendering: pixelated;">
       <div class="dialogue__text">
@@ -286,7 +335,7 @@
 <section id="inventory">
   <div class="container">
     <p class="section__eyebrow pixel-font">INVENTORY</p>
-    <h2 class="section__title pixel-font">SKILLS EQUIPPED</h2>
+    <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="SKILLS EQUIPPED">SKILLS EQUIPPED</span></h2>
     <div class="grid">
       <div class="item pixel-border pixel-corners" data-xp="90">
         <div class="item__icon">▣</div>
@@ -325,7 +374,7 @@
 <section id="quests">
   <div class="container">
     <p class="section__eyebrow pixel-font">QUEST LOG</p>
-    <h2 class="section__title pixel-font">FEATURED PROJECTS</h2>
+    <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="FEATURED PROJECTS">FEATURED PROJECTS</span></h2>
 
     <article class="quest pixel-border pixel-corners">
       <div class="quest__thumb" aria-hidden="true">📚</div>
@@ -381,8 +430,6 @@
 </footer>
 
 <script>
-
-// ---------- floating stars ----------
 const starField = document.getElementById('starField');
 if(starField){
   for(let i=0;i<14;i++){
@@ -395,7 +442,6 @@ if(starField){
   }
 }
 
-// ---------- XP bar fill on scroll into view ----------
 const items = document.querySelectorAll('.item');
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
