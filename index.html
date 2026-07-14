@@ -7,16 +7,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
-</style>
 </head>
 <body>
 
+<!-- Scroll progress bar -->
+<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar"></div>
+
+<!-- CRT overlay with animated scan line -->
 <div class="crt-overlay" aria-hidden="true"></div>
+<div class="crt-scanline" aria-hidden="true"></div>
+
+<!-- Ambient floating particles -->
+<div class="particles" aria-hidden="true" id="particles"></div>
 
 <nav class="nav">
   <span class="nav__logo pixel-font">REEF.EXE</span>
-  <ul class="nav__links">
+  <button class="nav__toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav__links" id="navLinks">
     <li><a href="#about">ABOUT</a></li>
     <li><a href="#inventory">SKILLS</a></li>
     <li><a href="#quests">PROJECTS</a></li>
@@ -28,77 +37,103 @@
   <div class="stars" aria-hidden="true" id="starField"></div>
   <p class="hero__coin pixel-font">INSERT COIN TO CONTINUE</p>
 
-  <img src="./assets/dev-laptop.png" alt="Developer at laptop" class="sprite" width="200" height="200" style="image-rendering: pixelated;">
+  <div class="parallax-wrapper" data-parallax-speed="0.12">
+    <img src="./assets/dev-laptop.png" alt="Developer at laptop" class="sprite" width="200" height="200" style="image-rendering: pixelated;" loading="eager">
+  </div>
 
-  <h1 class="hero__title glitch" data-text="REEF">REEF</h1>
-  <p class="hero__subtitle pixel-font" style="font-size:clamp(10px,2vw,13px)">UNITY DEVELOPER · GAMEPLAY PROGRAMMER</p>
+  <h1 class="hero__title glitch" data-text="REEF" id="heroTitle">REEF</h1>
+  <p class="hero__subtitle">UNITY DEVELOPER · GAMEPLAY PROGRAMMER</p>
   <p class="hero__desc">Building interactive worlds in C# — from puzzle mechanics to the systems that hold a level together. Currently crafting a bookshelf full of secrets that shouldn't be opened.</p>
-  <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center;">
+  <div class="hero__actions">
     <a href="#quests" class="btn">PRESS START ▶</a>
     <a href="#save" class="btn btn--ghost">CONTACT →</a>
   </div>
 </header>
 
-<section id="about">
+<div class="section-divider" data-reveal>
+  <span class="section-divider__line"></span>
+  <span class="section-divider__icon pixel-font">◈</span>
+  <span class="section-divider__line"></span>
+</div>
+
+<section id="about" data-reveal>
   <div class="container">
     <p class="section__eyebrow pixel-font">LEVEL 01</p>
     <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="THE DEVELOPER">THE DEVELOPER</span></h2>
-    <div class="dialogue pixel-border pixel-corners">
-      <img src="./assets/dev-laptop.png" alt="Developer avatar" class="sprite" width="100" height="100" style="image-rendering: pixelated;">
+    <div class="dialogue pixel-border pixel-corners" id="dialogue">
+      <img src="./assets/dev-laptop.png" alt="Developer avatar" class="sprite" width="100" height="100" style="image-rendering: pixelated;" loading="lazy">
       <div class="dialogue__text">
-        <p>&gt; Hey, I'm <strong>Reef</strong>. I work in <strong>Unity</strong>, writing the C# scripts that turn a scene full of assets into something that actually plays.</p>
-        <p>&gt; I like systems that talk to each other cleanly — pickups that trigger audio cues, managers that track room state, dialogue that remembers what already happened.</p>
-        <p>&gt; Currently deep in a puzzle system involving a bookshelf, a curse, and a lot of edge cases.</p>
+        <p data-typewriter>&gt; Hey, I'm <strong>Reef</strong>. I work in <strong>Unity</strong>, writing the C# scripts that turn a scene full of assets into something that actually plays.</p>
+        <p data-typewriter data-typewriter-delay="600">&gt; I like systems that talk to each other cleanly — pickups that trigger audio cues, managers that track room state, dialogue that remembers what already happened.</p>
+        <p data-typewriter data-typewriter-delay="1200">&gt; Currently deep in a puzzle system involving a bookshelf, a curse, and a lot of edge cases.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="inventory">
+<div class="section-divider" data-reveal>
+  <span class="section-divider__line"></span>
+  <span class="section-divider__icon pixel-font">◈</span>
+  <span class="section-divider__line"></span>
+</div>
+
+<section id="inventory" data-reveal>
   <div class="container">
     <p class="section__eyebrow pixel-font">INVENTORY</p>
     <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="SKILLS EQUIPPED">SKILLS EQUIPPED</span></h2>
-    <div class="grid">
+    <div class="grid" data-reveal-stagger>
       <div class="item pixel-border pixel-corners" data-xp="90">
         <div class="item__icon">▣</div>
         <p class="item__name">UNITY ENGINE</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.90</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
       <div class="item pixel-border pixel-corners" data-xp="80">
         <div class="item__icon">{ }</div>
         <p class="item__name">C# SCRIPTING</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.80</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
       <div class="item pixel-border pixel-corners" data-xp="80">
         <div class="item__icon">◈</div>
         <p class="item__name">PUZZLE SYSTEMS</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.80</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
       <div class="item pixel-border pixel-corners" data-xp="70">
         <div class="item__icon">♪</div>
         <p class="item__name">AUDIO INTEGRATION</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.70</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
       <div class="item pixel-border pixel-corners" data-xp="80">
         <div class="item__icon">✦</div>
         <p class="item__name">GAMEPLAY UX</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.80</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
       <div class="item pixel-border pixel-corners" data-xp="85">
         <div class="item__icon">⌘</div>
         <p class="item__name">DEBUGGING / QA</p>
+        <div class="item__level pixel-font" aria-hidden="true">Lv.85</div>
         <div class="xp-track"><div class="xp-fill"></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="quests">
+<div class="section-divider" data-reveal>
+  <span class="section-divider__line"></span>
+  <span class="section-divider__icon pixel-font">◈</span>
+  <span class="section-divider__line"></span>
+</div>
+
+<section id="quests" data-reveal>
   <div class="container">
     <p class="section__eyebrow pixel-font">QUEST LOG</p>
     <h2 class="section__title pixel-font"><span class="glitch neon-hover" data-text="FEATURED PROJECTS">FEATURED PROJECTS</span></h2>
 
-    <article class="quest pixel-border pixel-corners">
+    <article class="quest pixel-border pixel-corners" data-reveal>
       <div class="quest__thumb" aria-hidden="true">📚</div>
       <div>
         <span class="quest__tag">IN PROGRESS</span>
@@ -110,33 +145,39 @@
       </div>
     </article>
 
-    <article class="quest pixel-border pixel-corners">
-      <div class="quest__thumb" aria-hidden="true">🎮</div>
+    <article class="quest quest--locked pixel-border pixel-corners" data-reveal>
+      <div class="quest__thumb" aria-hidden="true">🔒</div>
       <div>
-        <span class="quest__tag">IN PROGRESS</span>
+        <span class="quest__tag quest__tag--locked">LOCKED</span>
         <h3 class="quest__title">NEON-EDGE</h3>
-        <p class="quest__desc">Swap this card for your next project — a short line on what it is, what problem it solves for the player, and the one system you're proudest of.</p>
+        <p class="quest__desc">New quest data hasn't loaded yet. The game master is still balancing this encounter. Check back after the next update — this slot is reserved for something worth playing.</p>
         <ul class="quest__stack">
-          <li>Edit me</li>
+          <li>???</li>
         </ul>
       </div>
     </article>
 
-    <article class="quest pixel-border pixel-corners">
-      <div class="quest__thumb" aria-hidden="true">🕹️</div>
+    <article class="quest quest--locked pixel-border pixel-corners" data-reveal>
+      <div class="quest__thumb" aria-hidden="true">🔒</div>
       <div>
-        <span class="quest__tag">PROTOTYPE</span>
+        <span class="quest__tag quest__tag--locked">LOCKED</span>
         <h3 class="quest__title">TOWER DEFENSE</h3>
-        <p class="quest__desc">Another slot for a shipped prototype, jam entry, or personal project. Keep the tag as SHIPPED / PROTOTYPE / JAM ENTRY depending on status.</p>
+        <p class="quest__desc">This side quest hasn't been picked up yet. Once the main storyline progresses far enough, new opportunities will appear here. Stay tuned.</p>
         <ul class="quest__stack">
-          <li>Edit me</li>
+          <li>???</li>
         </ul>
       </div>
     </article>
   </div>
 </section>
 
-<section id="save" class="savepoint">
+<div class="section-divider" data-reveal>
+  <span class="section-divider__line"></span>
+  <span class="section-divider__icon pixel-font">◈</span>
+  <span class="section-divider__line"></span>
+</div>
+
+<section id="save" class="savepoint" data-reveal>
   <p class="section__eyebrow pixel-font">SAVE POINT</p>
   <h2 class="savepoint__title pixel-font">CONTINUE THE CONVERSATION?</h2>
   <p class="savepoint__desc">Open to collabs, freelance gigs, or just talking about tricky Unity bugs. Pick a channel below.</p>
@@ -147,44 +188,330 @@
   </div>
 </section>
 
+<button class="back-to-top pixel-font" id="backToTop" aria-label="Back to top">↑ RESUME</button>
+
 <footer>
-  <p class="pixel-font" style="font-size:9px;">MADE WITH <span class="heart">♥</span> AND TOO MUCH COFFEE — © <span id="year"></span> REEF</p>
+  <p class="pixel-font">MADE WITH <span class="heart">♥</span> AND TOO MUCH COFFEE — © <span id="year"></span> REEF</p>
 </footer>
 
 <script>
-const starField = document.getElementById('starField');
-if(starField){
-  for(let i=0;i<14;i++){
+// ─── Starfield ───────────────────────────────────────────────────────
+(function initStars() {
+  const field = document.getElementById('starField');
+  if (!field) return;
+
+  const count = 90;
+  const layers = [
+    { minSize: 1, maxSize: 1.5, opacityRange: [0.15, 0.4], durationRange: [5, 9], className: 'star-far' },
+    { minSize: 1.5, maxSize: 2.5, opacityRange: [0.3, 0.6], durationRange: [4, 7], className: 'star-mid' },
+    { minSize: 2.5, maxSize: 4, opacityRange: [0.5, 0.9], durationRange: [3, 5], className: 'star-near' },
+  ];
+
+  for (let i = 0; i < count; i++) {
+    const layer = layers[i % 3];
     const s = document.createElement('span');
-    s.style.top = Math.random()*90 + '%';
-    s.style.left = Math.random()*100 + '%';
-    s.style.animationDelay = (Math.random()*4) + 's';
-    s.style.opacity = (0.3 + Math.random()*0.5).toFixed(2);
-    starField.appendChild(s);
+    const size = layer.minSize + Math.random() * (layer.maxSize - layer.minSize);
+    const opacity = layer.opacityRange[0] + Math.random() * (layer.opacityRange[1] - layer.opacityRange[0]);
+    s.style.cssText = `
+      position:absolute;
+      width:${size}px; height:${size}px;
+      top:${Math.random() * 100}%;
+      left:${Math.random() * 100}%;
+      opacity:${opacity.toFixed(2)};
+      animation-delay:${(Math.random() * 5).toFixed(1)}s;
+      animation-duration:${(layer.durationRange[0] + Math.random() * (layer.durationRange[1] - layer.durationRange[0])).toFixed(1)}s;
+    `;
+    s.className = 'star ' + layer.className;
+    field.appendChild(s);
   }
-}
 
-const items = document.querySelectorAll('.item');
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const fill = entry.target.querySelector('.xp-fill');
-      const xp = entry.target.getAttribute('data-xp') || '50';
-      fill.style.width = xp + '%';
+  // Shooting stars
+  function createShootingStar() {
+    const star = document.createElement('span');
+    star.className = 'shooting-star';
+    const startX = 20 + Math.random() * 60;
+    star.style.cssText = `
+      position:absolute;
+      top:${5 + Math.random() * 20}%;
+      left:${startX}%;
+      animation:shoot ${2 + Math.random() * 2}s ease-out forwards;
+      animation-delay:0s;
+    `;
+    field.appendChild(star);
+    setTimeout(() => star.remove(), 4000);
+  }
 
-      // Add ARIA attributes for accessibility
-      entry.target.setAttribute('role', 'progressbar');
-      entry.target.setAttribute('aria-valuenow', xp);
-      entry.target.setAttribute('aria-valuemin', '0');
-      entry.target.setAttribute('aria-valuemax', '100');
-      entry.target.setAttribute('aria-label', `Experience points: ${xp} percent`);
+  // Spawn shooting stars at random intervals
+  function scheduleShootingStar() {
+    setTimeout(() => {
+      createShootingStar();
+      scheduleShootingStar();
+    }, 3000 + Math.random() * 12000);
+  }
+  scheduleShootingStar();
+})();
 
-      io.unobserve(entry.target);
-    }
+// ─── Floating Particles ─────────────────────────────────────────────
+(function initParticles() {
+  const container = document.getElementById('particles');
+  if (!container) return;
+
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('span');
+    const size = 2 + Math.random() * 3;
+    const isGold = Math.random() > 0.7;
+    p.style.cssText = `
+      position:absolute;
+      width:${size}px; height:${size}px;
+      top:${Math.random() * 100}%;
+      left:${Math.random() * 100}%;
+      background:${isGold ? 'var(--accent-gold)' : 'var(--accent-teal)'};
+      opacity:${(0.08 + Math.random() * 0.15).toFixed(2)};
+      animation:float-particle ${12 + Math.random() * 20}s ease-in-out infinite;
+      animation-delay:${(Math.random() * 15).toFixed(1)}s;
+      border-radius:50%;
+      pointer-events:none;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ─── Scroll Progress Bar ────────────────────────────────────────────
+(function initProgressBar() {
+  const bar = document.getElementById('progressBar');
+  if (!bar) return;
+
+  const update = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = progress + '%';
+    bar.setAttribute('aria-valuenow', Math.round(progress));
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+// ─── Mobile Nav Toggle ──────────────────────────────────────────────
+(function initNav() {
+  const toggle = document.querySelector('.nav__toggle');
+  const links = document.getElementById('navLinks');
+  if (!toggle || !links) return;
+
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true' ? false : true;
+    toggle.setAttribute('aria-expanded', expanded);
+    links.classList.toggle('nav__links--open');
+    document.body.classList.toggle('nav-open');
   });
-}, {threshold:0.4});
-items.forEach(i=>io.observe(i));
 
+  // Close nav on link click
+  links.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      links.classList.remove('nav__links--open');
+      document.body.classList.remove('nav-open');
+    });
+  });
+})();
+
+// ─── Scroll Reveal Animations ──────────────────────────────────────
+(function initReveal() {
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+
+        // Handle staggered children if present
+        const stagger = entry.target.querySelector('[data-reveal-stagger]');
+        if (stagger) {
+          const children = stagger.children;
+          [...children].forEach((child, i) => {
+            child.style.transitionDelay = `${i * 0.08}s`;
+          });
+        }
+
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  els.forEach(el => observer.observe(el));
+
+  // Also stagger individual quest cards within quests section
+  const quests = document.querySelectorAll('#quests .quest');
+  quests.forEach((q, i) => {
+    q.style.transitionDelay = `${i * 0.12}s`;
+  });
+})();
+
+// ─── Typewriter Dialogue ────────────────────────────────────────────
+(function initTypewriter() {
+  const paragraphs = document.querySelectorAll('[data-typewriter]');
+  if (!paragraphs.length) return;
+
+  let currentIndex = 0;
+
+  // Store original HTML and clear them initially
+  const originalHTML = [];
+  paragraphs.forEach((p, i) => {
+    originalHTML[i] = p.innerHTML;
+    p.innerHTML = '';
+  });
+
+  function typeWriter(element, html, speed, onComplete) {
+    let i = 0;
+    let output = '';
+
+    function type() {
+      if (i < html.length) {
+        if (html[i] === '<') {
+          const end = html.indexOf('>', i);
+          output += html.substring(i, end + 1);
+          i = end + 1;
+        } else {
+          output += html[i];
+          i++;
+        }
+        element.innerHTML = output + '<span class="typewriter-cursor">▌</span>';
+
+        // Pause slightly longer after punctuation
+        const char = html[i - 1];
+        const delay = (char === '.' || char === '!' || char === '?') ? speed * 4 :
+                      (char === ',' || char === ';') ? speed * 1.5 : speed;
+        setTimeout(type, delay);
+      } else {
+        element.innerHTML = output;
+        if (onComplete) onComplete();
+      }
+    }
+
+    type();
+  }
+
+  function typeNext() {
+    if (currentIndex >= paragraphs.length) return;
+    const p = paragraphs[currentIndex];
+    const html = originalHTML[currentIndex];
+    const delay = parseInt(p.getAttribute('data-typewriter-delay')) || 0;
+
+    setTimeout(() => {
+      typeWriter(p, html, 22, () => {
+        currentIndex++;
+        if (currentIndex < paragraphs.length) {
+          const nextDelay = parseInt(paragraphs[currentIndex].getAttribute('data-typewriter-delay')) || 0;
+          setTimeout(typeNext, Math.max(0, nextDelay - 400));
+        }
+      });
+    }, delay);
+  }
+
+  // Start typing when about section is visible
+  const aboutSection = document.getElementById('about');
+  if (aboutSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(typeNext, 600);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    observer.observe(aboutSection);
+  }
+})();
+
+// ─── Back to Top Button ──────────────────────────────────────────────
+(function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) {
+      btn.classList.add('back-to-top--visible');
+    } else {
+      btn.classList.remove('back-to-top--visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+// ─── Mouse-reactive Hero Title ─────────────────────────────────────
+(function initHeroGlow() {
+  const title = document.getElementById('heroTitle');
+  const hero = document.querySelector('.hero');
+  if (!title || !hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const rect = title.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    title.style.setProperty('--mouse-shadow-x', `${x * 12}px`);
+    title.style.setProperty('--mouse-shadow-y', `${y * 12}px`);
+    title.style.setProperty('--mouse-glow-x', `${x * -8}px`);
+    title.style.setProperty('--mouse-glow-y', `${y * -8}px`);
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    title.style.setProperty('--mouse-shadow-x', '4px');
+    title.style.setProperty('--mouse-shadow-y', '4px');
+    title.style.setProperty('--mouse-glow-x', '0px');
+    title.style.setProperty('--mouse-glow-y', '0px');
+  });
+})();
+
+// ─── Parallax on Scroll ─────────────────────────────────────────────
+(function initParallax() {
+  const wrappers = document.querySelectorAll('.parallax-wrapper');
+  if (!wrappers.length) return;
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        wrappers.forEach(el => {
+          const speed = parseFloat(el.getAttribute('data-parallax-speed')) || 0.12;
+          el.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+// ─── XP Bars (from original) ────────────────────────────────────────
+(function initXPBars() {
+  const items = document.querySelectorAll('.item');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fill = entry.target.querySelector('.xp-fill');
+        const xp = entry.target.getAttribute('data-xp') || '50';
+        fill.style.width = xp + '%';
+
+        entry.target.setAttribute('role', 'progressbar');
+        entry.target.setAttribute('aria-valuenow', xp);
+        entry.target.setAttribute('aria-valuemin', '0');
+        entry.target.setAttribute('aria-valuemax', '100');
+        entry.target.setAttribute('aria-label', `Experience points: ${xp} percent`);
+
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  items.forEach(i => io.observe(i));
+})();
+
+// ─── Year ────────────────────────────────────────────────────────────
 document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
