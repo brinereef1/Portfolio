@@ -12,7 +12,7 @@
 }
 
 *{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth; overflow-x:hidden;}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
@@ -685,5 +685,4 @@ a:focus-visible, button:focus-visible{
   will-change:transform;
 }
 @media (prefers-reduced-motion: reduce){
-  .parallax-wrapper{transform:none !important;}
-}
+  .parallax-wrapper{transform:n
