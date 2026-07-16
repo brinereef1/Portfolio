@@ -12,6 +12,18 @@
 }
 
 *{box-sizing:border-box;}
+
+/* Prevent any element from exceeding viewport width */
+img, .sprite, .dialogue img, .hero img, .quest img, .savepoint img, .back-to-top {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure page never scrolls horizontally */
+html, body {
+  overflow-x: hidden;
+}
+
 html{scroll-behavior:smooth; overflow-x:hidden;}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
@@ -220,19 +232,19 @@ a{color:inherit;}
 @media (max-width:640px){
   .nav__toggle{display:flex;}
   .nav__links{
-    position:fixed; top:0; right:0; z-index:41;
+    position:fixed; top:0; right:-220px; z-index:41;
     flex-direction:column;
     gap:0;
     min-width:220px; height:100vh;
     background:rgba(22,16,41,.97);
     backdrop-filter:blur(8px);
     padding:80px 32px 32px;
-    transform:translateX(100%);
     opacity:0;
     border-left:3px solid var(--line);
+    transition: right 0.3s ease, opacity 0.3s ease;
   }
   .nav__links--open{
-    transform:translateX(0);
+    right:0;
     opacity:1;
   }
   .nav__links li{border-bottom:1px solid var(--line);}
@@ -264,9 +276,12 @@ a{color:inherit;}
   image-rendering:pixelated;
   margin:18px auto 10px;
   display:block;
-  transition:transform 0.3s ease;
+  transition:transform 0.3s ease, filter 0.3s ease;
 }
-.sprite:hover{transform:scale(1.08);}
+.sprite:hover{
+  transform:scale(1.12) translateY(-4px);
+  filter:drop-shadow(0 0 8px var(--accent-teal)) drop-shadow(0 0 20px var(--accent-magenta));
+}
 
 .hero__title{
   font-size:clamp(22px,6vw,44px);
@@ -427,7 +442,7 @@ section{
 /* ── Reveal Animations ───────────────────────────────────────────── */
 [data-reveal]{
   opacity:0;
-  transform:translateY(30px);
+  transform:none;
   transition:opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -557,6 +572,14 @@ section{
 .quest__title{
   font-family:'Press Start 2P'; font-size:14px; margin:0 0 10px; color:var(--text-light);
 }
+.quest__link{
+  color:inherit; text-decoration:none;
+  transition:color 0.2s, text-shadow 0.2s;
+}
+.quest__link:hover{
+  color:var(--accent-teal);
+  text-shadow:0 0 8px var(--accent-teal);
+}
 .quest__desc{color:var(--text-dim); font-size:14px; margin:0 0 12px;}
 .quest__stack{display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0; font-size:11px;}
 .quest__stack li{
@@ -682,7 +705,19 @@ a:focus-visible, button:focus-visible{
 
 /* ── Parallax ────────────────────────────────────────────────────── */
 .parallax-wrapper{
-  will-change:transform;
+  border:2px solid transparent;
+  border-radius:4px;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor:pointer;
+}
+.parallax-wrapper:hover{
+  border-color:var(--accent-teal);
+  box-shadow:0 0 16px var(--accent-teal), 0 0 40px rgba(95, 208, 199, 0.3);
+}
+.parallax-wrapper:hover .sprite{
+  transform:scale(1.12) translateY(-4px);
+  filter:drop-shadow(0 0 8px var(--accent-teal)) drop-shadow(0 0 20px var(--accent-magenta));
 }
 @media (prefers-reduced-motion: reduce){
-  .parallax-wrapper{transform:n
+  .parallax-wrapper{transform:none !important;}
+}
