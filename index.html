@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>REEF.EXE — Unity Developer Portfolio</title>
+<title>BRINE.EXE — Unity Developer Portfolio</title>
+<link rel="icon" href="./assets/dev-laptop.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -21,7 +22,7 @@
 <div class="particles" aria-hidden="true" id="particles"></div>
 
 <nav class="nav">
-  <span class="nav__logo pixel-font">REEF.EXE</span>
+  <span class="nav__logo pixel-font">BRINE.EXE</span>
   <button class="nav__toggle" aria-label="Toggle navigation menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
@@ -37,11 +38,11 @@
   <div class="stars" aria-hidden="true" id="starField"></div>
   <p class="hero__coin pixel-font">INSERT COIN TO CONTINUE</p>
 
-  <div class="parallax-wrapper" data-parallax-speed="0.12">
+  <div class="parallax-wrapper">
     <img src="./assets/dev-laptop.png" alt="Developer at laptop" class="sprite" width="200" height="200" style="image-rendering: pixelated;" loading="eager">
   </div>
 
-  <h1 class="hero__title glitch" data-text="REEF" id="heroTitle">REEF</h1>
+  <h1 class="hero__title glitch" data-text="BRINE SANTRA" id="heroTitle">BRINE SANTRA</h1>
   <p class="hero__subtitle">UNITY DEVELOPER · GAMEPLAY PROGRAMMER</p>
   <p class="hero__desc">Building interactive worlds in C# — from puzzle mechanics to the systems that hold a level together. Currently crafting a bookshelf full of secrets that shouldn't be opened.</p>
   <div class="hero__actions">
@@ -63,7 +64,7 @@
     <div class="dialogue pixel-border pixel-corners" id="dialogue">
       <img src="./assets/dev-laptop.png" alt="Developer avatar" class="sprite" width="100" height="100" style="image-rendering: pixelated;" loading="lazy">
       <div class="dialogue__text">
-        <p data-typewriter>&gt; Hey, I'm <strong>Reef</strong>. I work in <strong>Unity</strong>, writing the C# scripts that turn a scene full of assets into something that actually plays.</p>
+        <p data-typewriter>&gt; Hey, I'm <strong>Brine</strong>. I work in <strong>Unity</strong>, writing the C# scripts that turn a scene full of assets into something that actually plays.</p>
         <p data-typewriter data-typewriter-delay="600">&gt; I like systems that talk to each other cleanly — pickups that trigger audio cues, managers that track room state, dialogue that remembers what already happened.</p>
         <p data-typewriter data-typewriter-delay="1200">&gt; Currently deep in a puzzle system involving a bookshelf, a curse, and a lot of edge cases.</p>
       </div>
@@ -137,7 +138,7 @@
       <div class="quest__thumb" aria-hidden="true">📚</div>
       <div>
         <span class="quest__tag">IN PROGRESS</span>
-        <h3 class="quest__title">THE CURSED BOOKSHELF</h3>
+        <h3 class="quest__title"><a href="" class="quest__link">THE CURSED BOOKSHELF</a></h3>
         <p class="quest__desc">A room-based puzzle system built from interlocking C# scripts — books can be picked up, some bite back, and the room manager keeps every outcome consistent even when randomized. Includes a debug toggle to force specific outcomes without breaking the odds for everything else.</p>
         <ul class="quest__stack">
           <li>Unity</li><li>C#</li><li>State Management</li><li>Audio Events</li>
@@ -145,14 +146,14 @@
       </div>
     </article>
 
-    <article class="quest quest--locked pixel-border pixel-corners" data-reveal>
-      <div class="quest__thumb" aria-hidden="true">🔒</div>
+    <article class="quest pixel-border pixel-corners" data-reveal>
+      <div class="quest__thumb" aria-hidden="true">🃏</div>
       <div>
-        <span class="quest__tag quest__tag--locked">LOCKED</span>
-        <h3 class="quest__title">NEON-EDGE</h3>
-        <p class="quest__desc">New quest data hasn't loaded yet. The game master is still balancing this encounter. Check back after the next update — this slot is reserved for something worth playing.</p>
+        <span class="quest__tag">IN DEVELOPMENT</span>
+        <h3 class="quest__title"><a href="" class="quest__link">NEON-EDGE</a></h3>
+        <p class="quest__desc">A 2D turn-based card-battle system built in Unity. Players face a smart AI opponent in tactical duels — each side draws from a deck, manages energy, and deploys cards with unique abilities including <strong>Lifesteal</strong>, <strong>Armor Break</strong>, <strong>Shield Bash</strong>, and <strong>Energy Drain</strong>. The AI scores every affordable card by damage potential, kill threat, and ability timing — it won't waste Lifesteal at full HP or Armor Break against zero armor. Cards arc across the field with punch-scale impacts, screen shakes, and ability banners. Built on clean systems: <strong>BattleSystem</strong> orchestrates turns, <strong>CardData</strong> as ScriptableObjects, a <strong>Deck</strong> with Fisher-Yates shuffle and auto-recycle, and an <strong>AbilityResolver</strong> for pure stat calculations.</p>
         <ul class="quest__stack">
-          <li>???</li>
+          <li>Unity</li><li>C#</li><li>Card Battle System</li><li>AI Selector</li><li>ScriptableObjects</li>
         </ul>
       </div>
     </article>
@@ -161,7 +162,19 @@
       <div class="quest__thumb" aria-hidden="true">🔒</div>
       <div>
         <span class="quest__tag quest__tag--locked">LOCKED</span>
-        <h3 class="quest__title">TOWER DEFENSE</h3>
+        <h3 class="quest__title"><a href="" class="quest__link">TOWER DEFENSE</a></h3>
+        <p class="quest__desc">This side quest hasn't been picked up yet. Once the main storyline progresses far enough, new opportunities will appear here. Stay tuned.</p>
+        <ul class="quest__stack">
+          <li>???</li>
+        </ul>
+      </div>
+    </article>
+
+        <article class="quest quest--locked pixel-border pixel-corners" data-reveal>
+      <div class="quest__thumb" aria-hidden="true">🔒</div>
+      <div>
+        <span class="quest__tag quest__tag--locked">LOCKED</span>
+        <h3 class="quest__title"><a href="" class="quest__link">TOWER DEFENSE</a></h3>
         <p class="quest__desc">This side quest hasn't been picked up yet. Once the main storyline progresses far enough, new opportunities will appear here. Stay tuned.</p>
         <ul class="quest__stack">
           <li>???</li>
@@ -183,15 +196,15 @@
   <p class="savepoint__desc">Open to collabs, freelance gigs, or just talking about tricky Unity bugs. Pick a channel below.</p>
   <div class="savepoint__links">
     <a href="mailto:you@example.com" class="btn">EMAIL ME</a>
-    <a href="#" class="btn btn--ghost">GITHUB</a>
-    <a href="#" class="btn btn--ghost">LINKEDIN</a>
+    <a href="https://github.com/brinereef1" class="btn btn--ghost">GITHUB</a>
+    <a href="https://www.linkedin.com/in/brine-santra-77b17a32a/" class="btn btn--ghost">LINKEDIN</a>
   </div>
 </section>
 
 <button class="back-to-top pixel-font" id="backToTop" aria-label="Back to top">↑ RESUME</button>
 
 <footer>
-  <p class="pixel-font">MADE WITH <span class="heart">♥</span> AND TOO MUCH COFFEE — © <span id="year"></span> REEF</p>
+  <p class="pixel-font">MADE WITH <span class="heart">♥</span> AND TOO MUCH COFFEE — © <span id="year"></span> BRINE</p>
 </footer>
 
 <script src="script.js"></script>
