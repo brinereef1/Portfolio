@@ -255,10 +255,10 @@
     const rect = title.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    title.style.setProperty('--mouse-shadow-x', `${x * 12}px`);
-    title.style.setProperty('--mouse-shadow-y', `${y * 12}px`);
-    title.style.setProperty('--mouse-glow-x', `${x * -8}px`);
-    title.style.setProperty('--mouse-glow-y', `${y * -8}px`);
+    title.style.setProperty('--mouse-shadow-x', `${x * 2}px`);
+    title.style.setProperty('--mouse-shadow-y', `${y * 2}px`);
+    title.style.setProperty('--mouse-glow-x', `${x * -1}px`);
+    title.style.setProperty('--mouse-glow-y', `${y * -1}px`);
   });
 
   hero.addEventListener('mouseleave', () => {
@@ -267,27 +267,6 @@
     title.style.setProperty('--mouse-glow-x', '0px');
     title.style.setProperty('--mouse-glow-y', '0px');
   });
-})();
-
-// ─── Parallax on Scroll ─────────────────────────────────────────────
-(function initParallax() {
-  const wrappers = document.querySelectorAll('.parallax-wrapper');
-  if (!wrappers.length) return;
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-        wrappers.forEach(el => {
-          const speed = parseFloat(el.getAttribute('data-parallax-speed')) || 0.12;
-          el.style.transform = `translateY(${scrollY * speed}px)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
 })();
 
 // ─── XP Bars ────────────────────────────────────────────────────────
