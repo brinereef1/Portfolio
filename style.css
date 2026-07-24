@@ -298,7 +298,7 @@ a{color:inherit;}
   color:var(--accent-teal);
   margin:0 0 26px;
 }
-.hero__desc{max-width:520px; color:var(--text-dim); font-size:14px; margin-bottom:30px;}
+.hero__desc{max-width:600px; color:var(--text-dim); font-size:14px; margin-bottom:30px;}
 .hero__actions{
   display:flex;
   gap:16px;
