@@ -292,6 +292,25 @@
   items.forEach(i => io.observe(i));
 })();
 
+// ─── Pixel Image Loader ──────────────────────────────────────────────
+(function initPixelLoader() {
+  const selector = '.quest__gallery-item img, .quest__thumb img';
+  document.querySelectorAll(selector).forEach(img => {
+    const parent = img.closest('.quest__gallery-item') || img.closest('.quest__thumb');
+    if (!parent) return;
+
+    const reveal = () => parent.classList.add('loaded');
+
+    if (img.complete && img.naturalWidth > 0) {
+      // Already cached — reveal instantly
+      reveal();
+    } else {
+      img.addEventListener('load', reveal);
+      img.addEventListener('error', reveal); // Show image even on broken load
+    }
+  });
+})();
+
 // ─── Year ────────────────────────────────────────────────────────────
 (function initYear() {
   const el = document.getElementById('year');
