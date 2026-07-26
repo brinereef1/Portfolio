@@ -293,40 +293,22 @@
 })();
 
 // ─── Pixel Image Loader ──────────────────────────────────────────────
+// Graceful enhancement — dismisses the loading overlay once an image loads.
+// If JS fails or load is slow, CSS auto-fades the loader after 3.5s anyway.
 (function initPixelLoader() {
-  const selector = '.quest__gallery-item img, .quest__thumb img';
-  const pending = [];
-
-  document.querySelectorAll(selector).forEach(img => {
-    const parent = img.closest('.quest__gallery-item') || img.closest('.quest__thumb');
+  document.querySelectorAll('.quest__gallery-item img').forEach(img => {
+    const parent = img.closest('.quest__gallery-item');
     if (!parent) return;
 
-    const reveal = () => {
-      parent.classList.add('loaded');
-      parent.style.opacity = ''; // clear any inline fallback
-    };
+    const reveal = () => parent.classList.add('loaded');
 
     if (img.complete && img.naturalWidth > 0) {
-      // Already cached — reveal instantly
       reveal();
     } else {
       img.addEventListener('load', reveal);
-      img.addEventListener('error', reveal); // Show image even on broken load
-      pending.push(parent);
+      img.addEventListener('error', reveal);
     }
   });
-
-  // Safety net — force-reveal anything still loading after 10s
-  // (prevents infinite spinner on slow mobile connections)
-  if (pending.length) {
-    setTimeout(() => {
-      pending.forEach(el => {
-        if (!el.classList.contains('loaded')) {
-          el.classList.add('loaded');
-        }
-      });
-    }, 10000);
-  }
 })();
 
 // ─── Year ────────────────────────────────────────────────────────────

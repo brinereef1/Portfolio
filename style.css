@@ -670,23 +670,21 @@ section{
 .quest__gallery-item img{
   width:100%; height:100%; object-fit:cover;
   display:block;
-  opacity:0;
-  transition:opacity 0.4s ease, filter 0.3s;
-}
-.quest__gallery-item.loaded img{
-  opacity:1;
+  transition:filter 0.3s;
 }
 .quest__gallery-item:hover img{
   filter:brightness(1.1);
 }
 
 /* ── Pixel Loading Animation ───────────────────────────────────────── */
+/* Loader auto-fades after 3s even without JS — graceful degradation */
 .quest__gallery-item::before{
   content:'';
   position:absolute; inset:0; z-index:2;
   background:var(--bg-deep);
   display:flex; align-items:center; justify-content:center;
-  transition:opacity 0.4s ease;
+  animation:loader-fadeout 3.5s ease forwards;
+  pointer-events:none;
 }
 .quest__gallery-item::after{
   content:'';
@@ -700,7 +698,12 @@ section{
     100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
     2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px)
   );
-  animation:pixel-load 0.9s ease-in-out infinite;
+  animation:loader-fadeout 3.5s ease forwards, pixel-load 0.9s ease-in-out 3.5s;
+}
+@keyframes loader-fadeout{
+  0%{opacity:1;}
+  70%{opacity:1;}
+  100%{opacity:0; pointer-events:none;}
 }
 @keyframes pixel-load{
   0%,100%{
@@ -719,51 +722,15 @@ section{
     box-shadow:0 0 0 0 rgba(224,84,107,0.2);
   }
 }
+/* When JS marks as loaded — dismiss loader immediately */
 .quest__gallery-item.loaded::before,
 .quest__gallery-item.loaded::after{
+  animation:none;
   opacity:0;
   pointer-events:none;
 }
 .quest__gallery-item .quest__gallery-label{
   z-index:4;
-}
-
-/* ── Quest Thumb Loading ────────────────────────────────────────────── */
-.quest__thumb{
-  position:relative;
-}
-.quest__thumb img{
-  opacity:0;
-  transition:opacity 0.4s ease;
-}
-.quest__thumb.loaded img{
-  opacity:1;
-}
-.quest__thumb::before{
-  content:'';
-  position:absolute; inset:0; z-index:1;
-  background:var(--bg-panel-2);
-  display:flex; align-items:center; justify-content:center;
-  transition:opacity 0.4s ease;
-}
-.quest__thumb::after{
-  content:'';
-  position:absolute; top:50%; left:50%; z-index:2;
-  width:16px; height:16px;
-  margin:-8px 0 0 -8px;
-  background:var(--accent-gold);
-  clip-path:polygon(
-    0 2px, 2px 2px, 2px 0,
-    calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
-    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%,
-    2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px)
-  );
-  animation:pixel-load 0.9s ease-in-out infinite;
-}
-.quest__thumb.loaded::before,
-.quest__thumb.loaded::after{
-  opacity:0;
-  pointer-events:none;
 }
 .quest__gallery-label{
   position:absolute; bottom:0; left:0; right:0;
