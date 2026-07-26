@@ -1,3 +1,8 @@
+// ─── JS-Enabled Flag (MUST BE FIRST) ────────────────────────────────
+// Marks the page as JS-powered so CSS can safely hide/reveal content.
+// If this line never runs (JS disabled / early error), all content stays visible.
+document.documentElement.classList.add('js-enabled');
+
 // ─── Starfield ───────────────────────────────────────────────────────
 (function initStars() {
   const field = document.getElementById('starField');
